@@ -1,0 +1,18 @@
+package org.khr.anzenauth.service;
+
+import com.mybatisflex.core.service.IService;
+import org.khr.anzenauth.model.entity.SysMenu;
+
+import java.util.Set;
+
+/**
+ * 菜单表 服务层。
+ *
+ * @author KK
+ * @since 2025-09-17 10:12:12
+ */
+public interface SysMenuService extends IService<SysMenu> {
+
+
+    Set<String> selectMenuPermsByUserId(Long userId);
+}
