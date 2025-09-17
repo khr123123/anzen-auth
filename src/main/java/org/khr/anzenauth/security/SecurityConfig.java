@@ -1,6 +1,6 @@
 package org.khr.anzenauth.security;
 
-import org.khr.anzenauth.base.properties.PermitAllUrlProperties;
+import org.khr.anzenauth.security.properties.PermitAllUrlProperties;
 import org.khr.anzenauth.security.filter.JwtAuthenticationTokenFilter;
 import org.khr.anzenauth.security.handle.AuthenticationEntryPointImpl;
 import org.springframework.beans.factory.annotation.Autowired;

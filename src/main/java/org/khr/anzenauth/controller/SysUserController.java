@@ -3,7 +3,7 @@ package org.khr.anzenauth.controller;
 import com.mybatisflex.core.paginate.Page;
 import org.khr.anzenauth.base.common.BaseResponse;
 import org.khr.anzenauth.base.common.ResultUtils;
-import org.khr.anzenauth.base.properties.Anonymous;
+import org.khr.anzenauth.security.properties.Anonymous;
 import org.khr.anzenauth.model.dto.UserLoginDto;
 import org.khr.anzenauth.model.entity.SysUser;
 import org.khr.anzenauth.service.SysUserService;
