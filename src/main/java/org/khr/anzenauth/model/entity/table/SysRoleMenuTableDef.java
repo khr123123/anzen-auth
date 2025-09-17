@@ -9,7 +9,7 @@ import java.io.Serial;
  * 角色和菜单关联表 表定义层。
  *
  * @author KK
- * @since 2025-09-17 10:12:12
+ * @since 2025-09-17 15:23:57
  */
 public class SysRoleMenuTableDef extends TableDef {
 

@@ -3,21 +3,21 @@ package org.khr.anzenauth.model.entity;
 import com.mybatisflex.annotation.Id;
 import com.mybatisflex.annotation.KeyType;
 import com.mybatisflex.annotation.Table;
-import java.io.Serializable;
-import java.sql.Timestamp;
-
-import java.io.Serial;
-
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.io.Serial;
+import java.io.Serializable;
+import java.sql.Timestamp;
+import java.util.List;
+
 /**
  * 菜单表 实体类。
  *
  * @author KK
- * @since 2025-09-17 10:12:12
+ * @since 2025-09-17 15:23:57
  */
 @Data
 @Builder
@@ -56,6 +56,11 @@ public class SysMenu implements Serializable {
     private Long parentId;
 
     /**
+     * 菜单类型（M目录 C菜单 F按钮）
+     */
+    private String menuType;
+
+    /**
      * 显示顺序
      */
     private Integer orderNum;
@@ -65,4 +70,6 @@ public class SysMenu implements Serializable {
      */
     private Timestamp createTime;
 
+
+    private List<SysMenu> children;
 }

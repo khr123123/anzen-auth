@@ -1,5 +1,5 @@
 -- 1. 创建数据库
-CREATE DATABASE `anzen_auth` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
+CREATE DATABASE if not exists `anzen_auth` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
 USE anzen_auth;
 
 -- 2. 用户表
@@ -33,6 +33,7 @@ CREATE TABLE sys_menu
     perms       VARCHAR(100) COMMENT '权限标识（如：system:user:list）',
     url         VARCHAR(200) COMMENT '路由地址',
     parent_id   BIGINT    DEFAULT 0 COMMENT '父菜单ID',
+    menu_type   CHAR(1)   DEFAULT '' COMMENT '菜单类型（M目录 C菜单 F按钮）',
     order_num   INT       DEFAULT 0 COMMENT '显示顺序',
     create_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间'
 ) ENGINE = InnoDB
@@ -73,10 +74,10 @@ VALUES (1, '超级管理员', 'admin', '0'),
        (2, '普通用户', 'user', '0');
 
 -- 3. 插入菜单（权限点）
-INSERT INTO sys_menu (menu_id, menu_name, perms, url, parent_id, order_num)
-VALUES (1, '用户管理', 'system:user:list', '/system/user', 0, 1),
-       (2, '角色管理', 'system:role:list', '/system/role', 0, 2),
-       (3, '菜单管理', 'system:menu:list', '/system/menu', 0, 3);
+INSERT INTO sys_menu (menu_id, menu_name, perms, url, parent_id, menu_type, order_num)
+VALUES (1, '用户管理', 'system:user:list', '/system/user', 0, 'M', 1),
+       (2, '角色管理', 'system:role:list', '/system/role', 0, 'M', 2),
+       (3, '菜单管理', 'system:menu:list', '/system/menu', 0, 'M', 3);
 
 -- 4. 用户-角色关联
 INSERT INTO sys_user_role (user_id, role_id)

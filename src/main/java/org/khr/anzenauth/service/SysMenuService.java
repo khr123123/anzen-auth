@@ -2,7 +2,9 @@ package org.khr.anzenauth.service;
 
 import com.mybatisflex.core.service.IService;
 import org.khr.anzenauth.model.entity.SysMenu;
+import org.khr.anzenauth.model.vo.RouterVO;
 
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -15,4 +17,7 @@ public interface SysMenuService extends IService<SysMenu> {
 
 
     Set<String> selectMenuPermsByUserId(Long userId);
+
+    List<SysMenu> selectMenuTreeByUserId(Long loginUserId);
+
 }

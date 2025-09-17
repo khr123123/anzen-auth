@@ -9,7 +9,7 @@ import java.io.Serial;
  * 用户和角色关联表 表定义层。
  *
  * @author KK
- * @since 2025-09-17 10:12:12
+ * @since 2025-09-17 15:23:57
  */
 public class SysUserRoleTableDef extends TableDef {
 
