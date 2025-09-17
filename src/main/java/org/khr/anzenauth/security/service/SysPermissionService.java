@@ -1,9 +1,10 @@
 package org.khr.anzenauth.security.service;
 
+import lombok.AllArgsConstructor;
+import org.khr.anzenauth.base.constant.RoleConstant;
 import org.khr.anzenauth.model.entity.SysUser;
 import org.khr.anzenauth.service.SysMenuService;
 import org.khr.anzenauth.service.SysRoleService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.HashSet;
@@ -15,13 +16,12 @@ import java.util.Set;
  * @author ruoyi
  */
 @Component
+@AllArgsConstructor
 public class SysPermissionService {
 
-    @Autowired
-    private SysRoleService roleService;
+    private final SysRoleService roleService;
 
-    @Autowired
-    private SysMenuService menuService;
+    private final SysMenuService menuService;
 
     /**
      * 获取角色数据权限
@@ -33,7 +33,7 @@ public class SysPermissionService {
         Set<String> roles = new HashSet<>();
         // 管理员拥有所有权限
         if (roleService.isAdmin(user.getUserId())) {
-            roles.add("admin");
+            roles.add(RoleConstant.ROLE_ADMIN);
         } else {
             roles.addAll(roleService.selectRolePermissionByUserId(user.getUserId()));
         }

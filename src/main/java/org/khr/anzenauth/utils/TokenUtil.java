@@ -13,6 +13,8 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
+import static org.khr.anzenauth.model.entity.table.SysUserTableDef.SYS_USER;
+
 @UtilityClass
 public class TokenUtil {
 
@@ -36,8 +38,8 @@ public class TokenUtil {
         payload.put(JWTPayload.ISSUED_AT, now);
         payload.put(JWTPayload.EXPIRES_AT, expireAt);
         payload.put(JWTPayload.NOT_BEFORE, now);
-        payload.put("userName", userName);
-        payload.put("userId", userId);
+        payload.put(SYS_USER.USERNAME.toString(), userName);
+        payload.put(SYS_USER.USER_ID.toString(), userId);
 
         return JWTUtil.createToken(payload, SECRET.getBytes(StandardCharsets.UTF_8));
     }

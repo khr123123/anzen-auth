@@ -1,5 +1,6 @@
 package org.khr.anzenauth.security.filter;
 
+import io.micrometer.common.lang.NonNullApi;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -16,13 +17,17 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
+import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
+
+import static org.khr.anzenauth.model.entity.table.SysUserTableDef.SYS_USER;
 
 /**
  * Token 过滤器，验证 token 有效性
  */
 @Component
+@NonNullApi
 public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
 
     private static final String TOKEN_HEADER = "Authorization";
@@ -40,9 +45,8 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
             String token = header.substring(TOKEN_PREFIX.length());
 
             if (TokenUtil.validateToken(token)) {
-                String username = (String) TokenUtil.getClaim(token, "userName");
-                Object userIdObj = TokenUtil.getClaim(token, "userId");
-                Long userId = Long.parseLong(userIdObj.toString());
+                String username = (String) TokenUtil.getClaim(token, SYS_USER.USERNAME.toString());
+                Long userId = Long.parseLong(TokenUtil.getClaim(token, SYS_USER.USER_ID.toString()).toString());
                 // 查询用户权限
                 Set<String> permsSet = sysMenuService.selectMenuPermsByUserId(userId);
 
@@ -52,7 +56,10 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
                     .collect(Collectors.toSet());
 
                 UsernamePasswordAuthenticationToken authenticationToken =
-                    new UsernamePasswordAuthenticationToken(username, null, authorities);
+                    new UsernamePasswordAuthenticationToken(
+                        Map.of(SYS_USER.USER_ID, userId, SYS_USER.USERNAME, username),
+                        null,
+                        authorities);
 
                 authenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
                 SecurityContextHolder.getContext().setAuthentication(authenticationToken);
