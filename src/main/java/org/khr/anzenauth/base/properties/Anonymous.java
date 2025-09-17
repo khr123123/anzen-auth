@@ -1,4 +1,4 @@
-package org.khr.anzenauth.common.properties;
+package org.khr.anzenauth.base.properties;
 
 import java.lang.annotation.*;
 

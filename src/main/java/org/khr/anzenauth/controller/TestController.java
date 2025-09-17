@@ -2,9 +2,9 @@ package org.khr.anzenauth.controller;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import org.khr.anzenauth.common.common.BaseResponse;
-import org.khr.anzenauth.common.common.ResultUtils;
-import org.khr.anzenauth.common.properties.Anonymous;
+import org.khr.anzenauth.base.common.BaseResponse;
+import org.khr.anzenauth.base.common.ResultUtils;
+import org.khr.anzenauth.base.properties.Anonymous;
 import org.khr.anzenauth.service.SysMenuService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;

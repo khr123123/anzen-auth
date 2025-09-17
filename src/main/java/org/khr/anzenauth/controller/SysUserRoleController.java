@@ -1,8 +1,8 @@
 package org.khr.anzenauth.controller;
 
 import com.mybatisflex.core.paginate.Page;
-import org.khr.anzenauth.common.common.BaseResponse;
-import org.khr.anzenauth.common.common.ResultUtils;
+import org.khr.anzenauth.base.common.BaseResponse;
+import org.khr.anzenauth.base.common.ResultUtils;
 import org.khr.anzenauth.model.entity.SysUserRole;
 import org.khr.anzenauth.service.SysUserRoleService;
 import org.springframework.beans.factory.annotation.Autowired;

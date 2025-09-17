@@ -1,4 +1,4 @@
-package org.khr.anzenauth.common.constant;
+package org.khr.anzenauth.base.constant;
 
 /**
  @author KK
@@ -7,6 +7,8 @@ package org.khr.anzenauth.common.constant;
 public class RoleConstant {
 
     public static final String ROLE_ADMIN = "admin";
+    public static final String ROLE_USER = "user";
+    public static final String ROLE_USER_ID = "2";
     public static final String ROLE_ADMIN_ID = "1";
 
 }

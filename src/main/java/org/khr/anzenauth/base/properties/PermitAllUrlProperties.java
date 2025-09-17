@@ -1,4 +1,4 @@
-package org.khr.anzenauth.common.properties;
+package org.khr.anzenauth.base.properties;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -21,7 +21,7 @@ import java.util.regex.Pattern;
 /**
  * 设置Anonymous注解允许匿名访问的url
  *
- * @author ruoyi
+ * @author kk
  */
 @Configuration
 public class PermitAllUrlProperties implements InitializingBean, ApplicationContextAware {

@@ -1,7 +1,7 @@
-package org.khr.anzenauth.common.exception;
+package org.khr.anzenauth.base.exception;
 
 import lombok.Getter;
-import org.khr.anzenauth.common.common.ErrorCode;
+import org.khr.anzenauth.base.common.ErrorCode;
 
 /**
  * 自定义异常类

@@ -1,4 +1,4 @@
-package org.khr.anzenauth.common.constant;
+package org.khr.anzenauth.base.constant;
 
 /**
  @author KK

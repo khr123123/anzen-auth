@@ -1,9 +1,9 @@
 package org.khr.anzenauth.security.service;
 
 import cn.hutool.core.util.ObjectUtil;
-import org.khr.anzenauth.common.common.ErrorCode;
-import org.khr.anzenauth.common.constant.UserStatus;
-import org.khr.anzenauth.common.exception.ThrowUtils;
+import org.khr.anzenauth.base.common.ErrorCode;
+import org.khr.anzenauth.base.constant.UserStatus;
+import org.khr.anzenauth.base.exception.ThrowUtils;
 import org.khr.anzenauth.model.entity.SysUser;
 import org.khr.anzenauth.service.SysUserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +22,6 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
     @Autowired
     private SysUserService userService;
-
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {

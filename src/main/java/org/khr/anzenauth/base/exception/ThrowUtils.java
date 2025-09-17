@@ -1,8 +1,8 @@
-package org.khr.anzenauth.common.exception;
+package org.khr.anzenauth.base.exception;
 
 
 import lombok.experimental.UtilityClass;
-import org.khr.anzenauth.common.common.ErrorCode;
+import org.khr.anzenauth.base.common.ErrorCode;
 
 /**
  * 抛异常工具类

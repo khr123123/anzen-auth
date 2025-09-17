@@ -1,6 +1,6 @@
 package org.khr.anzenauth.security;
 
-import org.khr.anzenauth.common.properties.PermitAllUrlProperties;
+import org.khr.anzenauth.base.properties.PermitAllUrlProperties;
 import org.khr.anzenauth.security.filter.JwtAuthenticationTokenFilter;
 import org.khr.anzenauth.security.handle.AuthenticationEntryPointImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +15,6 @@ import org.springframework.security.config.annotation.web.configurers.HeadersCon
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.security.web.access.AccessDeniedHandler;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 /**

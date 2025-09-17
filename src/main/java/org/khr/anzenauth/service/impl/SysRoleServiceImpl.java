@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
 import java.util.Collection;
 import java.util.List;
 
-import static org.khr.anzenauth.common.constant.RoleConstant.ROLE_ADMIN_ID;
+import static org.khr.anzenauth.base.constant.RoleConstant.ROLE_ADMIN_ID;
 
 /**
  * 角色表 服务层实现。
@@ -31,7 +31,8 @@ public class SysRoleServiceImpl extends ServiceImpl<SysRoleMapper, SysRole> impl
         if (userId == null) {
             return false;
         }
-        return sysUserRoleService.exists(query().eq(SysUserRole::getUserId, userId).eq(SysUserRole::getRoleId, ROLE_ADMIN_ID));
+        return sysUserRoleService.exists(
+            query().eq(SysUserRole::getUserId, userId).eq(SysUserRole::getRoleId, ROLE_ADMIN_ID));
     }
 
     @Override

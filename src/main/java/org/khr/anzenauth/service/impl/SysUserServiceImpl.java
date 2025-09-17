@@ -1,10 +1,9 @@
 package org.khr.anzenauth.service.impl;
 
 import com.mybatisflex.spring.service.impl.ServiceImpl;
-import org.khr.anzenauth.common.common.ErrorCode;
-import org.khr.anzenauth.common.exception.BusinessException;
+import org.khr.anzenauth.base.common.ErrorCode;
+import org.khr.anzenauth.base.exception.BusinessException;
 import org.khr.anzenauth.mapper.SysUserMapper;
-import org.khr.anzenauth.model.dto.LoginUser;
 import org.khr.anzenauth.model.entity.SysUser;
 import org.khr.anzenauth.service.SysUserService;
 import org.khr.anzenauth.utils.TokenUtil;
@@ -12,7 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
 import java.util.Set;
@@ -32,13 +30,11 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
 
     @Override
     public String userLogin(String username, String password) {
-        // 用户验证
-        Authentication authentication;
         try {
             UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(username,
                 password);
             // 该方法会去调用UserDetailsServiceImpl.loadUserByUsername
-            authentication = authenticationManager.authenticate(authenticationToken);
+            authenticationManager.authenticate(authenticationToken);
         } catch (Exception e) {
             throw new BusinessException(ErrorCode.NOT_LOGIN_ERROR);
         }

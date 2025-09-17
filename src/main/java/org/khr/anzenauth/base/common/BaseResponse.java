@@ -1,4 +1,4 @@
-package org.khr.anzenauth.common.common;
+package org.khr.anzenauth.base.common;
 
 import lombok.Data;
 

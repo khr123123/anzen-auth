@@ -1,14 +1,13 @@
-package org.khr.anzenauth.common.exception;
+package org.khr.anzenauth.base.exception;
 
 
 import io.swagger.v3.oas.annotations.Hidden;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
-import org.khr.anzenauth.common.common.BaseResponse;
-import org.khr.anzenauth.common.common.ErrorCode;
-import org.khr.anzenauth.common.common.ResultUtils;
+import org.khr.anzenauth.base.common.BaseResponse;
+import org.khr.anzenauth.base.common.ErrorCode;
+import org.khr.anzenauth.base.common.ResultUtils;
 import org.springframework.context.support.DefaultMessageSourceResolvable;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.validation.BindException;
@@ -81,6 +80,5 @@ public class GlobalExceptionHandler {
     public BaseResponse<?> HttpMessageNotReadableExceptionHandler(HttpMessageNotReadableException e) {
         return ResultUtils.error(ErrorCode.PARAMS_ERROR);
     }
-    //endregion
 
 }
