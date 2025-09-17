@@ -16,8 +16,4 @@ import java.util.Set;
 public interface SysUserService extends IService<SysUser> {
 
     String userLogin(String username, String password);
-
-    SysUser selectUserByUserName(String username);
-
-    Set<String> getMenuPermission(SysUser user);
 }

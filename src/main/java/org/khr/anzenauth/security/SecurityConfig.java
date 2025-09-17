@@ -1,9 +1,9 @@
 package org.khr.anzenauth.security;
 
-import org.khr.anzenauth.security.properties.PermitAllUrlProperties;
+import lombok.AllArgsConstructor;
 import org.khr.anzenauth.security.filter.JwtAuthenticationTokenFilter;
 import org.khr.anzenauth.security.handle.AuthenticationEntryPointImpl;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.khr.anzenauth.security.properties.PermitAllUrlProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -24,28 +24,15 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
  */
 @EnableMethodSecurity(securedEnabled = true)
 @Configuration
+@AllArgsConstructor
 public class SecurityConfig {
 
-    /**
-     * 认证失败处理类
-     */
-    @Autowired
-    private AuthenticationEntryPointImpl unauthorizedHandler;
-    /**
-     * token认证过滤器
-     */
-    @Autowired
-    private JwtAuthenticationTokenFilter authenticationTokenFilter;
+    private final AuthenticationEntryPointImpl unauthorizedHandler;
 
-    /**
-     * 允许匿名访问的地址
-     */
-    @Autowired
-    private PermitAllUrlProperties permitAllUrl;
+    private final JwtAuthenticationTokenFilter authenticationTokenFilter;
 
-    /**
-     * 身份验证实现
-     */
+    private final PermitAllUrlProperties permitAllUrl;
+
     @Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration)
         throws Exception {
@@ -79,9 +66,6 @@ public class SecurityConfig {
             .addFilterBefore(authenticationTokenFilter, UsernamePasswordAuthenticationFilter.class).build();
     }
 
-    /**
-     * 强散列哈希加密实现
-     */
     @Bean
     public BCryptPasswordEncoder bCryptPasswordEncoder() {
         return new BCryptPasswordEncoder();

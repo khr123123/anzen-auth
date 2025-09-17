@@ -4,6 +4,7 @@ import com.mybatisflex.core.paginate.Page;
 import org.khr.anzenauth.base.common.BaseResponse;
 import org.khr.anzenauth.base.common.ResultUtils;
 import org.khr.anzenauth.model.entity.SysRole;
+import org.khr.anzenauth.security.properties.Anonymous;
 import org.khr.anzenauth.service.SysRoleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -51,6 +52,7 @@ public class SysRoleController {
      * 查询所有角色表。
      */
     @GetMapping("list")
+    @Anonymous //
     public BaseResponse<List<SysRole>> list() {
         return ResultUtils.success(sysRoleService.list());
     }

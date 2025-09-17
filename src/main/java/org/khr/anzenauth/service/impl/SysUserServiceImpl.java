@@ -8,12 +8,9 @@ import org.khr.anzenauth.model.entity.SysUser;
 import org.khr.anzenauth.service.SysUserService;
 import org.khr.anzenauth.utils.TokenUtil;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Lazy;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.stereotype.Service;
-
-import java.util.Set;
 
 /**
  * 用户表 服务层实现。
@@ -25,7 +22,6 @@ import java.util.Set;
 public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> implements SysUserService {
 
     @Autowired
-    @Lazy
     private AuthenticationManager authenticationManager;
 
     @Override
@@ -36,22 +32,10 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
             // 该方法会去调用UserDetailsServiceImpl.loadUserByUsername
             authenticationManager.authenticate(authenticationToken);
         } catch (Exception e) {
-            throw new BusinessException(ErrorCode.NOT_LOGIN_ERROR);
+            throw new BusinessException(ErrorCode.NOT_LOGIN_ERROR, e.getMessage());
         }
         Long userId = getOne(query().eq(SysUser::getUsername, username)).getUserId();
         // 生成token
         return TokenUtil.generateToken(username, userId);
     }
-
-
-    @Override
-    public SysUser selectUserByUserName(String username) {
-        return getOne(query().eq(SysUser::getUsername, username));
-    }
-
-    @Override
-    public Set<String> getMenuPermission(SysUser user) {
-        return Set.of();
-    }
-
 }
