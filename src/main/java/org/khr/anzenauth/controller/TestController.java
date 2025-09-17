@@ -2,10 +2,11 @@ package org.khr.anzenauth.controller;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import lombok.extern.slf4j.Slf4j;
 import org.khr.anzenauth.base.common.BaseResponse;
 import org.khr.anzenauth.base.common.ResultUtils;
-import org.khr.anzenauth.base.properties.Anonymous;
 import org.khr.anzenauth.service.SysMenuService;
+import org.khr.anzenauth.utils.SecurityContextUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,6 +23,7 @@ import java.util.Set;
  * @author KK
  * @create 2025-09-17-11:57
  */
+@Slf4j
 @RestController
 @RequestMapping("/test")
 @Tag(name = "body参数")
@@ -46,9 +48,11 @@ public class TestController {
     }
 
     @GetMapping("/test")
-    @Anonymous
     public BaseResponse<Set<String>> testMenuPerms() {
         Set<String> perms = sysMenuService.selectMenuPermsByUserId(1L);
+        log.error("sd{}", SecurityContextUtils.getUsername());
+        log.error("asd{}", SecurityContextUtils.getUserId());
+        log.error("asd{}", SecurityContextUtils.getAllPermission());
         return ResultUtils.success(perms);
     }
 }

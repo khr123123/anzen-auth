@@ -21,6 +21,8 @@ import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import static org.khr.anzenauth.base.constant.TokenConstant.TOKEN_HEADER;
+import static org.khr.anzenauth.base.constant.TokenConstant.TOKEN_PREFIX;
 import static org.khr.anzenauth.model.entity.table.SysUserTableDef.SYS_USER;
 
 /**
@@ -29,9 +31,6 @@ import static org.khr.anzenauth.model.entity.table.SysUserTableDef.SYS_USER;
 @Component
 @NonNullApi
 public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
-
-    private static final String TOKEN_HEADER = "Authorization";
-    private static final String TOKEN_PREFIX = "Bearer ";
 
     @Autowired
     private SysMenuService sysMenuService;
