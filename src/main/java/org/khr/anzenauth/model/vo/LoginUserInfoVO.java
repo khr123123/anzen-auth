@@ -20,9 +20,7 @@ public class LoginUserInfoVO {
 
     private SysUser user;
 
-
     private Set<String> permissions;
-
 
     private Set<String> roles;
 

@@ -30,7 +30,6 @@ public class SysMenuServiceImpl extends ServiceImpl<SysMenuMapper, SysMenu> impl
         if (userId == null) {
             return Set.of();
         }
-
         QueryWrapper wrapper = query()
             .select(SYS_MENU.PERMS)
             .from(SYS_MENU)

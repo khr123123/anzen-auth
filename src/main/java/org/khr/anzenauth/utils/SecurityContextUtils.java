@@ -58,10 +58,6 @@ public class SecurityContextUtils {
             if (username != null) {
                 return username.toString();
             }
-        } else if (principal instanceof org.springframework.security.core.userdetails.UserDetails userDetails) {
-            return userDetails.getUsername();
-        } else if (principal instanceof String) {
-            return principal.toString();
         }
         throw new BusinessException(ErrorCode.NO_AUTH_ERROR, "获取用户账户异常");
     }

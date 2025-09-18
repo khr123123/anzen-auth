@@ -3,20 +3,21 @@ package org.khr.anzenauth.model.entity;
 import com.mybatisflex.annotation.Id;
 import com.mybatisflex.annotation.KeyType;
 import com.mybatisflex.annotation.Table;
+import java.io.Serializable;
+import java.util.Date;
+
+import java.io.Serial;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.io.Serial;
-import java.io.Serializable;
-import java.sql.Timestamp;
-
 /**
  * 角色表 实体类。
  *
  * @author KK
- * @since 2025-09-17 15:23:57
+ * @since 2025-09-18 09:23:43
  */
 @Data
 @Builder
@@ -52,6 +53,6 @@ public class SysRole implements Serializable {
     /**
      * 创建时间
      */
-    private Timestamp createTime;
+    private Date createTime;
 
 }

@@ -4,6 +4,7 @@ import com.mybatisflex.core.service.IService;
 import org.khr.anzenauth.model.entity.SysRole;
 
 import java.util.Collection;
+import java.util.Set;
 
 /**
  * 角色表 服务层。
@@ -15,5 +16,5 @@ public interface SysRoleService extends IService<SysRole> {
 
     boolean isAdmin(Long userId);
 
-    Collection<String> selectRolePermissionByUserId(Long userId);
+    Set<String> selectRolePermissionByUserId(Long userId);
 }

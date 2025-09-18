@@ -1,6 +1,7 @@
 package org.khr.anzenauth.controller;
 
 import com.mybatisflex.core.paginate.Page;
+import lombok.RequiredArgsConstructor;
 import org.khr.anzenauth.base.common.BaseResponse;
 import org.khr.anzenauth.base.common.ResultUtils;
 import org.khr.anzenauth.model.dto.UserLoginDto;
@@ -12,7 +13,6 @@ import org.khr.anzenauth.security.service.SysPermissionService;
 import org.khr.anzenauth.service.SysMenuService;
 import org.khr.anzenauth.service.SysUserService;
 import org.khr.anzenauth.utils.SecurityContextUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -26,14 +26,14 @@ import java.util.Set;
  */
 @RestController
 @RequestMapping("/sysUser")
+@RequiredArgsConstructor
 public class SysUserController {
 
-    @Autowired
-    private SysUserService sysUserService;
-    @Autowired
-    private SysPermissionService permissionService;
-    @Autowired
-    private SysMenuService menuService;
+    private final SysUserService sysUserService;
+
+    private final SysPermissionService permissionService;
+
+    private final SysMenuService menuService;
 
     /**
      * 用户登录

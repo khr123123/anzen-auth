@@ -1,5 +1,8 @@
 -- 1. 创建数据库
-CREATE DATABASE if not exists `anzen_auth` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
+CREATE DATABASE IF NOT EXISTS `anzen_auth`
+    DEFAULT CHARACTER SET utf8mb4
+    COLLATE utf8mb4_general_ci;
+
 USE anzen_auth;
 
 -- 2. 用户表
@@ -9,8 +12,8 @@ CREATE TABLE sys_user
     username    VARCHAR(50)  NOT NULL UNIQUE COMMENT '登录账号',
     password    VARCHAR(100) NOT NULL COMMENT '密码',
     nickname    VARCHAR(50) COMMENT '昵称',
-    status      CHAR(1)   DEFAULT '0' COMMENT '账号状态（0正常 1停用）',
-    create_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间'
+    status      CHAR(1)  DEFAULT '0' COMMENT '账号状态（0正常 1停用）',
+    create_time DATETIME DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间'
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4 COMMENT ='用户表';
 
@@ -20,8 +23,8 @@ CREATE TABLE sys_role
     role_id     BIGINT PRIMARY KEY AUTO_INCREMENT COMMENT '角色ID',
     role_name   VARCHAR(50) NOT NULL COMMENT '角色名称',
     role_key    VARCHAR(50) NOT NULL UNIQUE COMMENT '角色权限字符串（如：admin, user）',
-    status      CHAR(1)   DEFAULT '0' COMMENT '角色状态（0正常 1停用）',
-    create_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间'
+    status      CHAR(1)  DEFAULT '0' COMMENT '角色状态（0正常 1停用）',
+    create_time DATETIME DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间'
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4 COMMENT ='角色表';
 
@@ -30,12 +33,13 @@ CREATE TABLE sys_menu
 (
     menu_id     BIGINT PRIMARY KEY AUTO_INCREMENT COMMENT '菜单ID',
     menu_name   VARCHAR(50) NOT NULL COMMENT '菜单名称',
+    parent_id   BIGINT   DEFAULT 0 COMMENT '父菜单ID',
+    order_num   INT      DEFAULT 0 COMMENT '显示顺序',
     perms       VARCHAR(100) COMMENT '权限标识（如：system:user:list）',
     url         VARCHAR(200) COMMENT '路由地址',
-    parent_id   BIGINT    DEFAULT 0 COMMENT '父菜单ID',
-    menu_type   CHAR(1)   DEFAULT '' COMMENT '菜单类型（M目录 C菜单 F按钮）',
-    order_num   INT       DEFAULT 0 COMMENT '显示顺序',
-    create_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间'
+    menu_type   CHAR(1)  DEFAULT '' COMMENT '菜单类型（M目录 C菜单 F按钮）',
+    icon        VARCHAR(100) COMMENT '菜单图标',
+    create_time DATETIME DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间'
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4 COMMENT ='菜单表';
 
@@ -61,11 +65,9 @@ CREATE TABLE sys_role_menu
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4 COMMENT ='角色和菜单关联表';
 
-
 -- 1. 插入用户
 INSERT INTO sys_user (user_id, username, password, nickname, status)
-VALUES (1, 'admin', '$2a$10$IY6oj602.b7u5Kp1mO.B7OxUJxetAGwyXKv7o4vW7fDO7Qo5hQH6S', '超级管理员',
-        '0'), -- 密码是 bcrypt 加密（可以替换成你自己的）
+VALUES (1, 'admin', '$2a$10$IY6oj602.b7u5Kp1mO.B7OxUJxetAGwyXKv7o4vW7fDO7Qo5hQH6S', '超级管理员', '0'),
        (2, 'khr', '$2a$10$IY6oj602.b7u5Kp1mO.B7OxUJxetAGwyXKv7o4vW7fDO7Qo5hQH6S', '测试用户', '0');
 
 -- 2. 插入角色

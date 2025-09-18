@@ -31,7 +31,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
         ThrowUtils.throwIf(sysUser.getStatus().equals(UserStatus.DISABLE), ErrorCode.OPERATION_ERROR,
             "登录用户：" + username + " 已被停用.");
-
+        // 此方法只负责校验账号密码，无关于权限字符串的处理
         return User.withUsername(username).password(sysUser.getPassword()).build();
     }
 
