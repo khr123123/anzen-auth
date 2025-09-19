@@ -9,7 +9,7 @@ import java.io.Serial;
  * 用户表 表定义层。
  *
  * @author KK
- * @since 2025-09-18 09:23:43
+ * @since 2025-09-19 10:29:07
  */
 public class SysUserTableDef extends TableDef {
 
@@ -20,6 +20,16 @@ public class SysUserTableDef extends TableDef {
      * 用户表
      */
     public static final SysUserTableDef SYS_USER = new SysUserTableDef();
+
+    /**
+     * 用户邮箱
+     */
+    public final QueryColumn EMAIL = new QueryColumn(this, "email");
+
+    /**
+     * 用户头像
+     */
+    public final QueryColumn AVATAR = new QueryColumn(this, "avatar");
 
     /**
      * 账号状态（0正常 1停用）
@@ -52,6 +62,11 @@ public class SysUserTableDef extends TableDef {
     public final QueryColumn CREATE_TIME = new QueryColumn(this, "create_time");
 
     /**
+     * 更新时间
+     */
+    public final QueryColumn UPDATE_TIME = new QueryColumn(this, "update_time");
+
+    /**
      * 所有字段。
      */
     public final QueryColumn ALL_COLUMNS = new QueryColumn(this, "*");
@@ -59,7 +74,7 @@ public class SysUserTableDef extends TableDef {
     /**
      * 默认字段，不包含逻辑删除或者 large 等字段。
      */
-    public final QueryColumn[] DEFAULT_COLUMNS = new QueryColumn[]{USER_ID, USERNAME, PASSWORD, NICKNAME, STATUS, CREATE_TIME};
+    public final QueryColumn[] DEFAULT_COLUMNS = new QueryColumn[]{USER_ID, USERNAME, PASSWORD, NICKNAME, AVATAR, EMAIL, STATUS, CREATE_TIME, UPDATE_TIME};
 
     public SysUserTableDef() {
         super("", "sys_user");

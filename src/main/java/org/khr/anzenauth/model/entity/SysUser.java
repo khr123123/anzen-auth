@@ -3,6 +3,7 @@ package org.khr.anzenauth.model.entity;
 import com.mybatisflex.annotation.Id;
 import com.mybatisflex.annotation.KeyType;
 import com.mybatisflex.annotation.Table;
+
 import java.io.Serializable;
 import java.util.Date;
 
@@ -17,7 +18,7 @@ import lombok.NoArgsConstructor;
  * 用户表 实体类。
  *
  * @author KK
- * @since 2025-09-18 09:23:43
+ * @since 2025-09-19 10:29:07
  */
 @Data
 @Builder
@@ -51,6 +52,16 @@ public class SysUser implements Serializable {
     private String nickname;
 
     /**
+     * 用户头像
+     */
+    private String avatar;
+
+    /**
+     * 用户邮箱
+     */
+    private String email;
+
+    /**
      * 账号状态（0正常 1停用）
      */
     private String status;
@@ -59,5 +70,10 @@ public class SysUser implements Serializable {
      * 创建时间
      */
     private Date createTime;
+
+    /**
+     * 更新时间
+     */
+    private Date updateTime;
 
 }

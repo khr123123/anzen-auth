@@ -17,7 +17,7 @@ import lombok.NoArgsConstructor;
  * 角色表 实体类。
  *
  * @author KK
- * @since 2025-09-18 09:23:43
+ * @since 2025-09-19 10:29:07
  */
 @Data
 @Builder

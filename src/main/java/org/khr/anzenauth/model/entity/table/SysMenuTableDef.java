@@ -9,7 +9,7 @@ import java.io.Serial;
  * 菜单表 表定义层。
  *
  * @author KK
- * @since 2025-09-18 09:23:43
+ * @since 2025-09-19 10:29:07
  */
 public class SysMenuTableDef extends TableDef {
 
@@ -22,7 +22,7 @@ public class SysMenuTableDef extends TableDef {
     public static final SysMenuTableDef SYS_MENU = new SysMenuTableDef();
 
     /**
-     * 路由地址
+     * 路由和组件地址
      */
     public final QueryColumn URL = new QueryColumn(this, "url");
 
@@ -67,6 +67,11 @@ public class SysMenuTableDef extends TableDef {
     public final QueryColumn CREATE_TIME = new QueryColumn(this, "create_time");
 
     /**
+     * 更新时间
+     */
+    public final QueryColumn UPDATE_TIME = new QueryColumn(this, "update_time");
+
+    /**
      * 所有字段。
      */
     public final QueryColumn ALL_COLUMNS = new QueryColumn(this, "*");
@@ -74,7 +79,7 @@ public class SysMenuTableDef extends TableDef {
     /**
      * 默认字段，不包含逻辑删除或者 large 等字段。
      */
-    public final QueryColumn[] DEFAULT_COLUMNS = new QueryColumn[]{MENU_ID, MENU_NAME, PARENT_ID, ORDER_NUM, PERMS, URL, MENU_TYPE, ICON, CREATE_TIME};
+    public final QueryColumn[] DEFAULT_COLUMNS = new QueryColumn[]{MENU_ID, MENU_NAME, PARENT_ID, ORDER_NUM, PERMS, URL, MENU_TYPE, ICON, CREATE_TIME, UPDATE_TIME};
 
     public SysMenuTableDef() {
         super("", "sys_menu");

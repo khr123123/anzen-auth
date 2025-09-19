@@ -4,21 +4,23 @@ import com.mybatisflex.annotation.Column;
 import com.mybatisflex.annotation.Id;
 import com.mybatisflex.annotation.KeyType;
 import com.mybatisflex.annotation.Table;
+
+import java.io.Serializable;
+import java.util.Date;
+
+import java.io.Serial;
+import java.util.List;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.io.Serial;
-import java.io.Serializable;
-import java.util.Date;
-import java.util.List;
-
 /**
  * 菜单表 实体类。
  *
  * @author KK
- * @since 2025-09-18 09:23:43
+ * @since 2025-09-19 10:29:07
  */
 @Data
 @Builder
@@ -57,7 +59,7 @@ public class SysMenu implements Serializable {
     private String perms;
 
     /**
-     * 路由地址
+     * 路由和组件地址
      */
     private String url;
 
@@ -77,9 +79,14 @@ public class SysMenu implements Serializable {
     private Date createTime;
 
     /**
-     * 业务字段,不映射到数据库，构建菜单树时使用
+     * 更新时间
+     */
+    private Date updateTime;
+
+
+    /**
+     * 子菜单
      */
     @Column(ignore = true)
     private List<SysMenu> children;
-
 }
