@@ -7,9 +7,11 @@ import org.khr.anzenauth.model.entity.SysRole;
 import org.khr.anzenauth.security.properties.Anonymous;
 import org.khr.anzenauth.service.SysRoleService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Set;
 
 /**
  * 角色表 控制层。
@@ -24,52 +26,72 @@ public class SysRoleController {
     @Autowired
     private SysRoleService sysRoleService;
 
+
     /**
-     * 保存角色表。
+     * 获取某角色权限。
      */
-    @PostMapping("save")
-    public BaseResponse<Boolean> save(@RequestBody SysRole sysRole) {
+    @GetMapping("getRolePermission/{id}")
+    @PreAuthorize("hasAuthority('sys:role:perm')")
+    public BaseResponse<Set<Long>> getRolePermission(@PathVariable Long id) {
+        return ResultUtils.success(sysRoleService.getRolePermission(id));
+    }
+
+    /**
+     * 给某角色授权。
+     */
+    @PostMapping("grantRole/{id}")
+    @PreAuthorize("hasAuthority('sys:role:perm')")
+    public BaseResponse<Boolean> grantPermission(@PathVariable Long id,
+        @RequestParam(required = false) List<Long> permissions) {
+        return ResultUtils.success(sysRoleService.grantPermission(id, permissions));
+    }
+
+    /**
+     * 保存角色。
+     */
+    @PostMapping("saveRole")
+    public BaseResponse<Boolean> saveRole(@RequestBody SysRole sysRole) {
         return ResultUtils.success(sysRoleService.save(sysRole));
     }
 
     /**
-     * 根据主键删除角色表。
+     * 删除角色。
      */
-    @DeleteMapping("remove/{id}")
-    public BaseResponse<Boolean> remove(@PathVariable Long id) {
+    @DeleteMapping("deleteRole/{id}")
+    public BaseResponse<Boolean> deleteRole(@PathVariable Long id) {
         return ResultUtils.success(sysRoleService.removeById(id));
     }
 
     /**
-     * 根据主键更新角色表。
+     * 更新角色。
      */
-    @PutMapping("update")
-    public BaseResponse<Boolean> update(@RequestBody SysRole sysRole) {
+    @PutMapping("updateRole")
+    public BaseResponse<Boolean> updateRole(@RequestBody SysRole sysRole) {
         return ResultUtils.success(sysRoleService.updateById(sysRole));
     }
 
     /**
-     * 查询所有角色表。
+     * 查询所有角色。
      */
-    @GetMapping("list")
-    @Anonymous //
-    public BaseResponse<List<SysRole>> list() {
+    @GetMapping("listRole")
+    @Anonymous
+    public BaseResponse<List<SysRole>> listRole() {
         return ResultUtils.success(sysRoleService.list());
     }
 
     /**
-     * 根据主键获取角色表。
+     * 获取单个角色信息。
      */
-    @GetMapping("getInfo/{id}")
-    public BaseResponse<SysRole> getInfo(@PathVariable Long id) {
+    @GetMapping("getRoleInfo/{id}")
+    public BaseResponse<SysRole> getRoleInfo(@PathVariable Long id) {
         return ResultUtils.success(sysRoleService.getById(id));
     }
 
     /**
-     * 分页查询角色表。
+     * 分页查询角色。
      */
-    @GetMapping("page")
-    public BaseResponse<Page<SysRole>> page(Page<SysRole> page) {
+    @GetMapping("pageRole")
+    public BaseResponse<Page<SysRole>> pageRole(Page<SysRole> page) {
         return ResultUtils.success(sysRoleService.page(page));
     }
 }

@@ -18,6 +18,8 @@ public interface SysMenuService extends IService<SysMenu> {
 
     Set<String> selectMenuPermsByUserId(Long userId);
 
-    List<SysMenu> selectMenuTreeByUserId(Long loginUserId);
+    List<SysMenu> selectMenuTreeByUserId(Long loginUserId, boolean includeButton);
+
+    List<SysMenu> listMenu2Tree();
 
 }

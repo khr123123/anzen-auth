@@ -27,8 +27,8 @@ public class TestTree {
     public void testTree() {
 //        BaseResponse<SysUser> info = sysUserController.getInfo(1L);
 //        System.out.println("info.getData() = " + info.getData());
-        BaseResponse<List<SysMenu>> routers = sysUserController.getRouters();
-        System.out.println("routers.getData() = " + routers.getData());
+//        BaseResponse<List<SysMenu>> routers = sysUserController.getRouters();
+//        System.out.println("routers.getData() = " + routers.getData());
     }
 
 }

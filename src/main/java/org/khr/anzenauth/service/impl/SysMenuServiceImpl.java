@@ -11,6 +11,7 @@ import org.khr.anzenauth.service.SysMenuService;
 import org.khr.anzenauth.utils.SecurityContextUtils;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.Set;
@@ -42,11 +43,23 @@ public class SysMenuServiceImpl extends ServiceImpl<SysMenuMapper, SysMenu> impl
         return listAs(wrapper, String.class).stream().filter(StrUtil::isNotBlank).collect(Collectors.toSet());
     }
 
-    @Override
-    public List<SysMenu> selectMenuTreeByUserId(Long userId) {
+    /**
+     * 查询用户菜单树
+     * @param userId 用户ID
+     * @param includeButton 是否包含按钮（menuType=F）
+     * @return 菜单树列表
+     */
+    public List<SysMenu> selectMenuTreeByUserId(Long userId, boolean includeButton) {
+        List<String> menuTypes = new ArrayList<>();
+        menuTypes.add(MenuConstant.MENU_M); // 目录
+        menuTypes.add(MenuConstant.MENU_C); // 菜单
+        if (includeButton) {
+            menuTypes.add(MenuConstant.MENU_F); // 按钮
+        }
+
         List<SysMenu> menus;
         if (SecurityContextUtils.isAdmin(userId)) {
-            menus = list(query().in(SYS_MENU.MENU_TYPE.getName(), MenuConstant.MENU_M, MenuConstant.MENU_C));
+            menus = list(query().in(SYS_MENU.MENU_TYPE.getName(), menuTypes));
         } else {
             menus = list(
                 query()
@@ -54,10 +67,18 @@ public class SysMenuServiceImpl extends ServiceImpl<SysMenuMapper, SysMenu> impl
                     .leftJoin(SYS_USER_ROLE).on(SYS_ROLE_MENU.ROLE_ID.eq(SYS_USER_ROLE.ROLE_ID))
                     .leftJoin(SYS_ROLE).on(SYS_ROLE.ROLE_ID.eq(SYS_USER_ROLE.ROLE_ID))
                     .where(SYS_USER_ROLE.USER_ID.eq(userId))
-                    .in(SYS_MENU.MENU_TYPE.getName(), MenuConstant.MENU_M, MenuConstant.MENU_C));
+                    .in(SYS_MENU.MENU_TYPE.getName(), menuTypes)
+            );
         }
+
         return buildTree(menus, 0L);
     }
+
+    @Override
+    public List<SysMenu> listMenu2Tree() {
+        return buildTree(list(), 0L);
+    }
+
 
     /** 递归构建菜单树 */
     private List<SysMenu> buildTree(List<SysMenu> menus, Long parentId) {

@@ -16,4 +16,8 @@ import java.util.Set;
 public interface SysUserService extends IService<SysUser> {
 
     String userLogin(String username, String password);
+
+    boolean grantRole(Long id, List<Long> roles);
+
+    List<Long> getUserRoles(Long id);
 }
