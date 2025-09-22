@@ -1,10 +1,10 @@
 package org.khr.anzenauth.controller;
 
 import com.mybatisflex.core.paginate.Page;
+import lombok.RequiredArgsConstructor;
 import org.khr.anzenauth.base.common.BaseResponse;
 import org.khr.anzenauth.base.common.ResultUtils;
 import org.khr.anzenauth.model.entity.SysRole;
-import org.khr.anzenauth.security.properties.Anonymous;
 import org.khr.anzenauth.service.SysRoleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -21,11 +21,10 @@ import java.util.Set;
  */
 @RestController
 @RequestMapping("/sysRole")
+@RequiredArgsConstructor
 public class SysRoleController {
 
-    @Autowired
-    private SysRoleService sysRoleService;
-
+    private final SysRoleService sysRoleService;
 
     /**
      * 获取某角色权限。
@@ -50,6 +49,7 @@ public class SysRoleController {
      * 保存角色。
      */
     @PostMapping("saveRole")
+    @PreAuthorize("hasAuthority('sys:role:add')")
     public BaseResponse<Boolean> saveRole(@RequestBody SysRole sysRole) {
         return ResultUtils.success(sysRoleService.save(sysRole));
     }
@@ -58,6 +58,7 @@ public class SysRoleController {
      * 删除角色。
      */
     @DeleteMapping("deleteRole/{id}")
+    @PreAuthorize("hasAuthority('sys:role:delete')")
     public BaseResponse<Boolean> deleteRole(@PathVariable Long id) {
         return ResultUtils.success(sysRoleService.removeById(id));
     }
@@ -66,6 +67,7 @@ public class SysRoleController {
      * 更新角色。
      */
     @PutMapping("updateRole")
+    @PreAuthorize("hasAuthority('sys:role:edit')")
     public BaseResponse<Boolean> updateRole(@RequestBody SysRole sysRole) {
         return ResultUtils.success(sysRoleService.updateById(sysRole));
     }
@@ -74,7 +76,7 @@ public class SysRoleController {
      * 查询所有角色。
      */
     @GetMapping("listRole")
-    @Anonymous
+    @PreAuthorize("hasAuthority('sys:role:query')")
     public BaseResponse<List<SysRole>> listRole() {
         return ResultUtils.success(sysRoleService.list());
     }
@@ -83,6 +85,7 @@ public class SysRoleController {
      * 获取单个角色信息。
      */
     @GetMapping("getRoleInfo/{id}")
+    @PreAuthorize("hasAuthority('sys:role:query')")
     public BaseResponse<SysRole> getRoleInfo(@PathVariable Long id) {
         return ResultUtils.success(sysRoleService.getById(id));
     }
@@ -91,6 +94,7 @@ public class SysRoleController {
      * 分页查询角色。
      */
     @GetMapping("pageRole")
+    @PreAuthorize("hasAuthority('sys:role:query')")
     public BaseResponse<Page<SysRole>> pageRole(Page<SysRole> page) {
         return ResultUtils.success(sysRoleService.page(page));
     }

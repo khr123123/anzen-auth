@@ -64,7 +64,7 @@ public class SecurityConfig {
                 // swagger 静态资源，可匿名访问
                 requests.requestMatchers("/v3/api-docs/**", "/swagger-ui/**", "/swagger-ui.html", "/webjars/**",
                         "doc.html",
-                        "/favicon.ico").permitAll()
+                        "/favicon.ico","/uploads/**").permitAll()
                     // 除上面外的所有请求全部需要鉴权认证
                     .anyRequest().authenticated();
             })

@@ -1,6 +1,7 @@
 package org.khr.anzenauth.security.service;
 
 import cn.hutool.core.util.ObjectUtil;
+import com.mybatisflex.core.mask.MaskManager;
 import com.mybatisflex.core.query.QueryWrapper;
 import org.khr.anzenauth.base.common.ErrorCode;
 import org.khr.anzenauth.base.constant.UserStatus;
@@ -24,15 +25,21 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        SysUser sysUser = userMapper.selectOneByQuery(
-            QueryWrapper.create().select(SYS_USER.PASSWORD, SYS_USER.STATUS).eq(SYS_USER.USERNAME.getName(), username));
+        try {
+            MaskManager.skipMask();
+            SysUser sysUser = userMapper.selectOneByQuery(
+                QueryWrapper.create().select(SYS_USER.PASSWORD, SYS_USER.STATUS)
+                    .eq(SYS_USER.USERNAME.getName(), username));
+            ThrowUtils.throwIf(ObjectUtil.isNull(sysUser), ErrorCode.OPERATION_ERROR,
+                "登录用户：" + username + " 不存在.");
+            ThrowUtils.throwIf(sysUser.getStatus().equals(UserStatus.DISABLE), ErrorCode.OPERATION_ERROR,
+                "登录用户：" + username + " 已被停用.");
+            // 此方法只负责校验账号密码，无关于权限字符串的处理
+            return User.withUsername(username).password(sysUser.getPassword()).build();
+        } finally {
+            MaskManager.restoreMask();
+        }
 
-        ThrowUtils.throwIf(ObjectUtil.isNull(sysUser), ErrorCode.OPERATION_ERROR, "登录用户：" + username + " 不存在.");
-
-        ThrowUtils.throwIf(sysUser.getStatus().equals(UserStatus.DISABLE), ErrorCode.OPERATION_ERROR,
-            "登录用户：" + username + " 已被停用.");
-        // 此方法只负责校验账号密码，无关于权限字符串的处理
-        return User.withUsername(username).password(sysUser.getPassword()).build();
     }
 
 }
