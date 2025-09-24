@@ -11,7 +11,7 @@ import org.aspectj.lang.reflect.MethodSignature;
 import org.khr.anzenauth.base.common.ErrorCode;
 import org.khr.anzenauth.base.constant.LimitType;
 import org.khr.anzenauth.base.exception.BusinessException;
-import org.khr.anzenauth.utils.IpUtils;
+import org.khr.anzenauth.base.utils.IpUtils;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.script.RedisScript;

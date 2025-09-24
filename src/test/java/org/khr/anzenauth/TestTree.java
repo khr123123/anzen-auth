@@ -1,17 +1,9 @@
 package org.khr.anzenauth;
 
 import org.junit.jupiter.api.Test;
-import org.khr.anzenauth.base.common.BaseResponse;
 import org.khr.anzenauth.controller.SysUserController;
-import org.khr.anzenauth.model.entity.SysMenu;
-import org.khr.anzenauth.model.entity.SysUser;
-import org.khr.anzenauth.model.vo.RouterVO;
-import org.khr.anzenauth.utils.SecurityContextUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.security.core.context.SecurityContextHolder;
-
-import java.util.List;
 
 /**
  @author KK

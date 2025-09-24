@@ -12,7 +12,7 @@ import org.khr.anzenauth.security.properties.Anonymous;
 import org.khr.anzenauth.security.service.SysPermissionService;
 import org.khr.anzenauth.service.SysMenuService;
 import org.khr.anzenauth.service.SysUserService;
-import org.khr.anzenauth.utils.SecurityContextUtils;
+import org.khr.anzenauth.base.utils.SecurityContextUtils;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 

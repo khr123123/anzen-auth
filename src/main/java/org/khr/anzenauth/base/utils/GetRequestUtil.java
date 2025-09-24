@@ -1,4 +1,4 @@
-package org.khr.anzenauth.utils;
+package org.khr.anzenauth.base.utils;
 
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.experimental.UtilityClass;

@@ -1,9 +1,9 @@
-package org.khr.anzenauth.manager;
+package org.khr.anzenauth.manager.async;
 
 import org.khr.anzenauth.api.addressApi.AddressApiClient;
 import org.khr.anzenauth.model.entity.SysOperaLog;
 import org.khr.anzenauth.service.SysOperaLogService;
-import org.khr.anzenauth.utils.SpringUtil;
+import org.khr.anzenauth.base.utils.SpringUtil;
 
 import java.util.TimerTask;
 

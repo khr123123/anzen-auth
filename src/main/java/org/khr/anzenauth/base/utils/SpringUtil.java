@@ -1,4 +1,4 @@
-package org.khr.anzenauth.utils;
+package org.khr.anzenauth.base.utils;
 
 import cn.hutool.core.util.ArrayUtil;
 import org.springframework.aop.framework.Advised;

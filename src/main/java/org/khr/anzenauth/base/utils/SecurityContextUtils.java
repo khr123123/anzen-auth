@@ -1,4 +1,4 @@
-package org.khr.anzenauth.utils;
+package org.khr.anzenauth.base.utils;
 
 import lombok.experimental.UtilityClass;
 import org.khr.anzenauth.base.common.ErrorCode;

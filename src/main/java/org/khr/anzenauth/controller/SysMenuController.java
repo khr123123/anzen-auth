@@ -9,7 +9,7 @@ import org.khr.anzenauth.base.common.ResultUtils;
 import org.khr.anzenauth.base.constant.BusinessType;
 import org.khr.anzenauth.model.entity.SysMenu;
 import org.khr.anzenauth.service.SysMenuService;
-import org.khr.anzenauth.utils.SecurityContextUtils;
+import org.khr.anzenauth.base.utils.SecurityContextUtils;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 

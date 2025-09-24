@@ -1,7 +1,7 @@
 package org.khr.anzenauth;
 
 import org.junit.jupiter.api.Test;
-import org.khr.anzenauth.utils.TokenUtil;
+import org.khr.anzenauth.base.utils.TokenUtil;
 import org.springframework.boot.test.context.SpringBootTest;
 
 /**

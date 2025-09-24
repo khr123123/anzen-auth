@@ -8,7 +8,7 @@ import org.khr.anzenauth.base.constant.MenuConstant;
 import org.khr.anzenauth.mapper.SysMenuMapper;
 import org.khr.anzenauth.model.entity.SysMenu;
 import org.khr.anzenauth.service.SysMenuService;
-import org.khr.anzenauth.utils.SecurityContextUtils;
+import org.khr.anzenauth.base.utils.SecurityContextUtils;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
