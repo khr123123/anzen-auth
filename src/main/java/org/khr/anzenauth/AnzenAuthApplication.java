@@ -1,5 +1,7 @@
 package org.khr.anzenauth;
 
+import jakarta.annotation.PreDestroy;
+import org.khr.anzenauth.manager.AsyncManager;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -12,4 +14,8 @@ public class AnzenAuthApplication {
         SpringApplication.run(AnzenAuthApplication.class, args);
     }
 
+    @PreDestroy
+    public void destroy() {
+        AsyncManager.me().shutdown();
+    }
 }
