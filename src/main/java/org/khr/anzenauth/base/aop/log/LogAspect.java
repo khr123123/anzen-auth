@@ -27,7 +27,7 @@ import java.util.Date;
 import java.util.Map;
 
 /**
- * 操作日志切面（简洁版）
+ * 操作日志切面
  *
  * @author kk
  */
@@ -58,43 +58,43 @@ public class LogAspect {
         try {
             HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.currentRequestAttributes()).getRequest();
 
-            SysOperaLog operLog = new SysOperaLog();
-            operLog.setStatus(BusinessStatus.SUCCESS.ordinal());
-            operLog.setOperaIp(IpUtils.getIpAddr(request));
-            operLog.setOperaUrl(StrUtil.sub(request.getRequestURI(), 0, 255));
-            operLog.setOperaName(SecurityContextUtils.getUsername());
-            operLog.setOperaTime(new Date());
-            operLog.setMethod(
+            SysOperaLog operaLog = new SysOperaLog();
+            operaLog.setStatus(BusinessStatus.SUCCESS.ordinal());
+            operaLog.setOperaIp(IpUtils.getIpAddr(request));
+            operaLog.setOperaUrl(StrUtil.sub(request.getRequestURI(), 0, 255));
+            operaLog.setOperaName(SecurityContextUtils.getUsername());
+            operaLog.setOperaTime(new Date());
+            operaLog.setMethod(
                 joinPoint.getTarget().getClass().getName() + "." + joinPoint.getSignature().getName() + "()");
-            operLog.setRequestMethod(request.getMethod());
+            operaLog.setRequestMethod(request.getMethod());
 
             if (e != null) {
-                operLog.setStatus(BusinessStatus.FAIL.ordinal());
+                operaLog.setStatus(BusinessStatus.FAIL.ordinal());
                 StringWriter sw = new StringWriter();
                 e.printStackTrace(new PrintWriter(sw, true));
-                operLog.setErrorMsg(StrUtil.sub(e.getMessage() != null ? e.getMessage() : sw.toString(), 0, 2000));
+                operaLog.setErrorMsg(StrUtil.sub(e.getMessage() != null ? e.getMessage() : sw.toString(), 0, 2000));
             }
 
             // 设置注解描述信息
-            operLog.setBusinessType(controllerLog.businessType().ordinal());
-            operLog.setTitle(controllerLog.title());
+            operaLog.setBusinessType(controllerLog.businessType().ordinal());
+            operaLog.setTitle(controllerLog.title());
 
             // 请求参数
             if (controllerLog.isSaveRequestData()) {
                 Map<String, String[]> paramMap = request.getParameterMap();
                 if (!paramMap.isEmpty()) {
-                    operLog.setOperaParam(StrUtil.sub(JSONUtil.toJsonStr(paramMap), 0, 2000));
+                    operaLog.setOperaParam(StrUtil.sub(JSONUtil.toJsonStr(paramMap), 0, 2000));
                 }
             }
 
             // 返回结果
             if (controllerLog.isSaveResponseData() && ObjectUtil.isNotNull(jsonResult)) {
-                operLog.setJsonResult(StrUtil.sub(JSONUtil.toJsonStr(jsonResult), 0, 2000));
+                operaLog.setJsonResult(StrUtil.sub(JSONUtil.toJsonStr(jsonResult), 0, 2000));
             }
 
-            operLog.setCostTime(System.currentTimeMillis() - TIME_THREADLOCAL.get());
-            AsyncManager.me().execute(AsyncFactory.recordOpera(operLog));
-            log.info("操作日志: {}", JSONUtil.toJsonStr(operLog));
+            operaLog.setCostTime(System.currentTimeMillis() - TIME_THREADLOCAL.get());
+            AsyncManager.me().execute(AsyncFactory.recordOpera(operaLog));
+            log.info("操作日志: {}", JSONUtil.toJsonStr(operaLog));
 
         } catch (Exception exp) {
             log.error("日志记录异常: {}", exp.getMessage(), exp);

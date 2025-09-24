@@ -1,11 +1,9 @@
 package org.khr.anzenauth.manager;
 
+import org.khr.anzenauth.api.addressApi.AddressApiClient;
 import org.khr.anzenauth.model.entity.SysOperaLog;
 import org.khr.anzenauth.service.SysOperaLogService;
-import org.khr.anzenauth.utils.AddressUtils;
 import org.khr.anzenauth.utils.SpringUtil;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.util.TimerTask;
 
@@ -15,8 +13,6 @@ import java.util.TimerTask;
  * @author kk
  */
 public class AsyncFactory {
-
-    private static final Logger sys_user_logger = LoggerFactory.getLogger("sys-user");
 
 //    /**
 //     * 记录登录信息
@@ -71,16 +67,17 @@ public class AsyncFactory {
     /**
      * 操作日志记录
      *
-     * @param operLog 操作日志信息
+     * @param operaLog 操作日志信息
      * @return 任务task
      */
-    public static TimerTask recordOpera(final SysOperaLog operLog) {
+    public static TimerTask recordOpera(final SysOperaLog operaLog) {
         return new TimerTask() {
             @Override
             public void run() {
                 // 远程查询操作地点
-                operLog.setOperaLocation(AddressUtils.getRealAddressByIP(operLog.getOperaIp()));
-                SpringUtil.getBean(SysOperaLogService.class).save(operLog);
+                operaLog.setOperaLocation(
+                    SpringUtil.getBean(AddressApiClient.class).getRealAddressByIP(operaLog.getOperaIp()));
+                SpringUtil.getBean(SysOperaLogService.class).save(operaLog);
             }
         };
     }

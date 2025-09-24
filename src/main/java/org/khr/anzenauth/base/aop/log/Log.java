@@ -33,8 +33,4 @@ public @interface Log {
      */
     boolean isSaveResponseData() default true;
 
-    /**
-     * 排除指定的请求参数
-     */
-    String[] excludeParamNames() default {};
 }
