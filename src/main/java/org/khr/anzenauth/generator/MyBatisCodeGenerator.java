@@ -54,6 +54,7 @@ public class MyBatisCodeGenerator {
 
         // 设置表前缀和只生成哪些表，setGenerateTable 未配置时，生成所有表
         globalConfig.getStrategyConfig()
+            .setGenerateTable("sys_opera_log")
 //            .setTablePrefix("tb_")
             // 设置逻辑删除的默认字段名称
             .setLogicDeleteColumn("is_delete");

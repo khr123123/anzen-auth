@@ -2,8 +2,10 @@ package org.khr.anzenauth.controller;
 
 import com.mybatisflex.core.paginate.Page;
 import lombok.RequiredArgsConstructor;
+import org.khr.anzenauth.base.aop.log.Log;
 import org.khr.anzenauth.base.common.BaseResponse;
 import org.khr.anzenauth.base.common.ResultUtils;
+import org.khr.anzenauth.base.constant.BusinessType;
 import org.khr.anzenauth.model.entity.SysMenu;
 import org.khr.anzenauth.service.SysMenuService;
 import org.khr.anzenauth.utils.SecurityContextUtils;
@@ -61,6 +63,7 @@ public class SysMenuController {
      */
     @PostMapping("saveMenu")
     @PreAuthorize("hasAuthority('sys:menu:add')")
+    @Log(title = "保存菜单", businessType = BusinessType.INSERT)
     public BaseResponse<Boolean> saveMenu(@RequestBody SysMenu sysMenu) {
         return ResultUtils.success(sysMenuService.save(sysMenu));
     }
@@ -70,6 +73,7 @@ public class SysMenuController {
      */
     @DeleteMapping("deleteMenu/{id}")
     @PreAuthorize("hasAuthority('sys:menu:delete')")
+    @Log(title = "删除菜单", businessType = BusinessType.DELETE)
     public BaseResponse<Boolean> deleteMenu(@PathVariable Long id) {
         return ResultUtils.success(sysMenuService.removeById(id));
     }
@@ -79,6 +83,7 @@ public class SysMenuController {
      */
     @PutMapping("updateMenu")
     @PreAuthorize("hasAuthority('sys:menu:edit')")
+    @Log(title = "更新菜单", businessType = BusinessType.UPDATE)
     public BaseResponse<Boolean> updateMenu(@RequestBody SysMenu sysMenu) {
         return ResultUtils.success(sysMenuService.updateById(sysMenu));
     }

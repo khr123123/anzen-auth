@@ -2,8 +2,10 @@ package org.khr.anzenauth.controller;
 
 import com.mybatisflex.core.paginate.Page;
 import lombok.RequiredArgsConstructor;
+import org.khr.anzenauth.base.aop.log.Log;
 import org.khr.anzenauth.base.common.BaseResponse;
 import org.khr.anzenauth.base.common.ResultUtils;
+import org.khr.anzenauth.base.constant.BusinessType;
 import org.khr.anzenauth.model.entity.SysRole;
 import org.khr.anzenauth.service.SysRoleService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,6 +52,7 @@ public class SysRoleController {
      */
     @PostMapping("saveRole")
     @PreAuthorize("hasAuthority('sys:role:add')")
+    @Log(title = "保存角色", businessType = BusinessType.INSERT)
     public BaseResponse<Boolean> saveRole(@RequestBody SysRole sysRole) {
         return ResultUtils.success(sysRoleService.save(sysRole));
     }
@@ -59,6 +62,7 @@ public class SysRoleController {
      */
     @DeleteMapping("deleteRole/{id}")
     @PreAuthorize("hasAuthority('sys:role:delete')")
+    @Log(title = "删除角色", businessType = BusinessType.DELETE)
     public BaseResponse<Boolean> deleteRole(@PathVariable Long id) {
         return ResultUtils.success(sysRoleService.removeById(id));
     }
@@ -68,6 +72,7 @@ public class SysRoleController {
      */
     @PutMapping("updateRole")
     @PreAuthorize("hasAuthority('sys:role:edit')")
+    @Log(title = "更新角色", businessType = BusinessType.UPDATE)
     public BaseResponse<Boolean> updateRole(@RequestBody SysRole sysRole) {
         return ResultUtils.success(sysRoleService.updateById(sysRole));
     }
