@@ -57,7 +57,6 @@ public class LogAspect {
     private void handleLog(JoinPoint joinPoint, Log controllerLog, Exception e, Object jsonResult) {
         try {
             HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.currentRequestAttributes()).getRequest();
-
             SysOperaLog operaLog = new SysOperaLog();
             operaLog.setStatus(BusinessStatus.SUCCESS.ordinal());
             operaLog.setOperaIp(IpUtils.getIpAddr(request));

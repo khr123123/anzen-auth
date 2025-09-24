@@ -2,6 +2,7 @@ package org.khr.anzenauth.controller;
 
 import com.mybatisflex.core.paginate.Page;
 import lombok.RequiredArgsConstructor;
+import org.khr.anzenauth.base.aop.limiter.RateLimiter;
 import org.khr.anzenauth.base.aop.log.Log;
 import org.khr.anzenauth.base.common.BaseResponse;
 import org.khr.anzenauth.base.common.ResultUtils;
@@ -41,10 +42,9 @@ public class SysMenuController {
      */
     @PostMapping("getUserMenuTreeWithButton")
     @PreAuthorize("hasAuthority('sys:menu:query')")
+    @RateLimiter(count = 20)
     public BaseResponse<List<SysMenu>> getUserMenuTreeWithButton() {
-        return ResultUtils.success(
-            sysMenuService.selectMenuTreeByUserId(SecurityContextUtils.getUserId(), true)
-        );
+        return ResultUtils.success(sysMenuService.selectMenuTreeByUserId(SecurityContextUtils.getUserId(), true));
     }
 
     /**
@@ -53,9 +53,7 @@ public class SysMenuController {
     @PostMapping("getUserMenuTree")
     @PreAuthorize("hasAuthority('sys:menu:query')")
     public BaseResponse<List<SysMenu>> getUserMenuTree() {
-        return ResultUtils.success(
-            sysMenuService.selectMenuTreeByUserId(SecurityContextUtils.getUserId(), false)
-        );
+        return ResultUtils.success(sysMenuService.selectMenuTreeByUserId(SecurityContextUtils.getUserId(), false));
     }
 
     /**
