@@ -36,8 +36,6 @@ public class GlobalExceptionHandler {
         return ResultUtils.error(ErrorCode.NO_AUTH_ERROR, "没有权限，请联系管理员授权");
     }
 
-
-
     @ExceptionHandler(BusinessException.class)
     public BaseResponse<?> businessExceptionHandler(BusinessException e) {
         log.error("BusinessException", e);
