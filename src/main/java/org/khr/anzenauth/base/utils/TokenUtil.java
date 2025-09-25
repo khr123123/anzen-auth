@@ -33,14 +33,12 @@ public class TokenUtil {
     public static String generateToken(String userName, Long userId) {
         DateTime now = DateTime.now();
         DateTime expireAt = now.offsetNew(DateField.MINUTE, EXPIRE_MINUTES);
-
         Map<String, Object> payload = new HashMap<>();
         payload.put(JWTPayload.ISSUED_AT, now);
         payload.put(JWTPayload.EXPIRES_AT, expireAt);
         payload.put(JWTPayload.NOT_BEFORE, now);
         payload.put(SYS_USER.USERNAME.toString(), userName);
         payload.put(SYS_USER.USER_ID.toString(), userId);
-
         return JWTUtil.createToken(payload, SECRET.getBytes(StandardCharsets.UTF_8));
     }
 
@@ -50,7 +48,6 @@ public class TokenUtil {
     public static boolean validateToken(String token) {
         try {
             JWT jwt = JWTUtil.parseToken(token).setSigner(JWTSignerUtil.hs256(SECRET.getBytes(StandardCharsets.UTF_8)));
-
             // 签名校验
             if (!jwt.verify()) {
                 return false;

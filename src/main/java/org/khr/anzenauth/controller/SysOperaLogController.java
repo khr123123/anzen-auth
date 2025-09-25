@@ -1,6 +1,8 @@
 package org.khr.anzenauth.controller;
 
 import com.mybatisflex.core.paginate.Page;
+import com.mybatisflex.core.query.QueryCondition;
+import com.mybatisflex.core.query.QueryWrapper;
 import org.khr.anzenauth.base.common.BaseResponse;
 import org.khr.anzenauth.base.common.ResultUtils;
 import org.khr.anzenauth.model.entity.SysOperaLog;
@@ -60,7 +62,8 @@ public class SysOperaLogController {
     @GetMapping("page")
     @PreAuthorize("hasAuthority('sys:log:query')")
     public BaseResponse<Page<SysOperaLog>> logPage(Page<SysOperaLog> page) {
-        return ResultUtils.success(sysOperaLogService.page(page));
+        return ResultUtils.success(
+            sysOperaLogService.page(page, new QueryWrapper().orderBy(SysOperaLog::getOperaTime, false)));
     }
 
 }

@@ -62,6 +62,7 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
 
                 authenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
                 SecurityContextHolder.getContext().setAuthentication(authenticationToken);
+                // TODO 刷新Token有效期
             }
         }
 
