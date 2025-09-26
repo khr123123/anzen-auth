@@ -21,7 +21,9 @@ public class TokenUtil {
     // 秘钥，可以放到配置文件里
     private static final String SECRET = "my-secret-key-by-kk";
     // token 有效期（分钟）
-    private static final int EXPIRE_MINUTES = 60; // 1 小时
+    public static final int EXPIRE_MINUTES = 60; // 1 小时
+    // 触发续期的阈值（分钟）
+    private static final int REFRESH_THRESHOLD_MINUTES = 20;
 
     /**
      * 生成 token
@@ -72,5 +74,32 @@ public class TokenUtil {
      */
     public static Object getClaim(String token, String key) {
         return JWTUtil.parseToken(token).getPayload(key);
+    }
+
+
+    /**
+     * 如果 token 快要过期，则生成一个新的 token（滑动过期）
+     * @param token 旧 token
+     * @return 新 token（如果无需刷新则返回旧 token）
+     */
+    public static String refreshTokenIfNeeded(String token) {
+        JWT jwt = JWTUtil.parseToken(token)
+            .setSigner(JWTSignerUtil.hs256(SECRET.getBytes(StandardCharsets.UTF_8)));
+        if (!jwt.verify()) {
+            throw new RuntimeException("Token 签名不合法");
+        }
+        Date exp = jwt.getPayloads().getDate(JWTPayload.EXPIRES_AT);
+        if (exp == null) {
+            throw new RuntimeException("Token 缺少过期时间");
+        }
+        long millisLeft = exp.getTime() - System.currentTimeMillis();
+        long minutesLeft = millisLeft / 1000 / 60;
+        // 如果剩余时间小于阈值，则生成新 token
+        if (minutesLeft <= REFRESH_THRESHOLD_MINUTES) {
+            String userName = (String) jwt.getPayload(SYS_USER.USERNAME.toString());
+            Long userId = Long.valueOf(jwt.getPayload(SYS_USER.USER_ID.toString()).toString());
+            return generateToken(userName, userId);
+        }
+        return token;
     }
 }

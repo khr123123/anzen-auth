@@ -1,9 +1,11 @@
 package org.khr.anzenauth.service.impl;
 
+import cn.hutool.core.lang.UUID;
 import com.mybatisflex.spring.service.impl.ServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.khr.anzenauth.base.common.ErrorCode;
 import org.khr.anzenauth.base.exception.BusinessException;
+import org.khr.anzenauth.base.utils.TokenUtil;
 import org.khr.anzenauth.mapper.SysUserMapper;
 import org.khr.anzenauth.model.entity.SysRole;
 import org.khr.anzenauth.model.entity.SysUser;
@@ -11,13 +13,17 @@ import org.khr.anzenauth.model.entity.SysUserRole;
 import org.khr.anzenauth.service.SysRoleService;
 import org.khr.anzenauth.service.SysUserRoleService;
 import org.khr.anzenauth.service.SysUserService;
-import org.khr.anzenauth.base.utils.TokenUtil;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.concurrent.TimeUnit;
+
+import static org.khr.anzenauth.base.constant.RedisConstants.LOGIN_TOKEN_KEY;
+import static org.khr.anzenauth.base.utils.TokenUtil.EXPIRE_MINUTES;
 
 /**
  * 用户表 服务层实现。
@@ -32,6 +38,7 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
     private final AuthenticationManager authenticationManager;
     private final SysUserRoleService sysUserRoleService;
     private final SysRoleService sysRoleService;
+    private final RedisTemplate<Object, Object> redisTemplate;
 
     @Override
     public String userLogin(String username, String password) {
@@ -45,7 +52,10 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
         }
         Long userId = getOne(query().eq(SysUser::getUsername, username)).getUserId();
         // 生成token
-        return TokenUtil.generateToken(username, userId);
+        String token = TokenUtil.generateToken(username, userId);
+        String frontEndToken = LOGIN_TOKEN_KEY + UUID.fastUUID();
+        redisTemplate.opsForValue().set(frontEndToken, token, EXPIRE_MINUTES, TimeUnit.MINUTES);
+        return frontEndToken;
     }
 
     @Override
