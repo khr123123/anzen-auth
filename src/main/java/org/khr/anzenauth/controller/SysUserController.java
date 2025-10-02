@@ -40,9 +40,7 @@ public class SysUserController {
     @PostMapping("loginUser")
     @Anonymous
     public BaseResponse<String> loginUser(@RequestBody UserLoginDto userLoginDto) {
-        return ResultUtils.success(
-            sysUserService.userLogin(userLoginDto.getUsername(), userLoginDto.getPassword())
-        );
+        return ResultUtils.success(sysUserService.userLogin(userLoginDto.getUsername(), userLoginDto.getPassword()));
     }
 
     /**
@@ -55,8 +53,7 @@ public class SysUserController {
         SysUser sysUser = sysUserService.getById(loginUserId);
         Set<String> roles = permissionService.getRolePermission(sysUser);
         return ResultUtils.success(
-            LoginUserInfoVO.builder().user(sysUser).roles(roles).permissions(allPermission).build()
-        );
+            LoginUserInfoVO.builder().user(sysUser).roles(roles).permissions(allPermission).build());
     }
 
     /**
