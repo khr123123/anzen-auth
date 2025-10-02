@@ -53,7 +53,7 @@ public class SecurityConfig {
             // 禁用HTTP响应标头
             .headers(
                 (headersCustomizer) -> headersCustomizer.cacheControl(HeadersConfigurer.CacheControlConfig::disable)
-                    .frameOptions(HeadersConfigurer.FrameOptionsConfig::sameOrigin))
+                    .frameOptions(HeadersConfigurer.FrameOptionsConfig::disable))
             // 认证失败处理类
             .exceptionHandling(exception -> exception.authenticationEntryPoint(unauthorizedHandler))
             // 基于token，所以不需要session
@@ -63,8 +63,7 @@ public class SecurityConfig {
                 permitAllUrl.getUrls().forEach(url -> requests.requestMatchers(url).permitAll());
                 // swagger 静态资源，可匿名访问
                 requests.requestMatchers("/v3/api-docs/**", "/swagger-ui/**", "/swagger-ui.html", "/webjars/**",
-                        "doc.html",
-                        "/favicon.ico","/uploads/**").permitAll()
+                        "doc.html", "/favicon.ico", "/uploads/**", "/druid/**").permitAll()
                     // 除上面外的所有请求全部需要鉴权认证
                     .anyRequest().authenticated();
             })
