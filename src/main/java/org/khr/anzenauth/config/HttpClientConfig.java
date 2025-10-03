@@ -23,4 +23,5 @@ public class HttpClientConfig {
             .build();
         return factory.createClient(AddressHttpClient.class);
     }
+
 }
