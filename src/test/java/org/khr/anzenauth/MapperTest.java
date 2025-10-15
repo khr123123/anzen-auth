@@ -23,9 +23,9 @@ import static org.khr.anzenauth.model.entity.table.SysUserRoleTableDef.SYS_USER_
 @SpringBootTest
 public class MapperTest {
 
-
     @Autowired
     private SysMenuService sysMenuService;
+
     @Test
     public void selectMenuPermsByUserId() {
         QueryWrapper wrapper = QueryWrapper.create()

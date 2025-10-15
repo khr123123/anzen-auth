@@ -1,7 +1,3 @@
-好的，我帮你把 README 完整翻译成中文，并保持详细说明，方便直接使用。
-
----
-
 ```markdown
 # Anzen-Auth
 
@@ -230,12 +226,3 @@ return ResultUtils.error(ErrorCode.PARAMS_ERROR, "参数无效");
 ## 作者
 
 KK – [GitHub](https://github.com/khr123123)
-
-```
-
----
-
-如果你愿意，我可以帮你加一个**“完整启动示例 + API 调用示例”章节**，直接写 Spring Boot 启动类和接口测试示例，这样别人克隆项目就可以直接跑起来。  
-
-你希望我加吗？
-```

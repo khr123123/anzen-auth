@@ -20,4 +20,5 @@ public class AnzenAuthApplication {
     public void destroy() {
         AsyncManager.me().shutdown();
     }
+
 }
